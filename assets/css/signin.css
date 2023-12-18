@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../css/signin.css" />
+  <style>
+    /* Importação de fontes do Google */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+    /* Reset de margens e preenchimento e definição de fonte padrão */
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', sans-serif;
+    }
+
+    /* Estilo do cabeçalho "Entrar" */
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4bee2b !important; /* Corrigido para verde mais claro */
+      font-family: 'Dancing Script', cursive, sans-serif;
+    }
+
+    /* Estilo do corpo da página */
+    body {
+      background-image: url("../images/bg-signin.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      background-position: center;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Estilo do contêiner principal */
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin-top: 20px;
+    }
+
+    /* Estilo do cartão de login */
+    .card {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(16, 47, 12, 0.85); /* Verde escuro com transparência */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 20px 50px rgba(47, 176, 53, 0.6)0.6);
+    }
+
+    /* Estilo do subtítulo "Entrar" no cartão */
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4bee2b !important; /* Corrigido para verde mais claro */
+      font-family: 'Dancing', cursive;
+    }
+
+    /* Estilo do campo de entrada de texto */
+    .label-float input {
+      width: 100%;
+      padding: 10px;
+      display: inline-block;
+      border: 0;
+      border-bottom: 2px solid #48ca3d; /* Verde claro */
+      background-color: transparent;
+      outline: none;
+      min-width: 180px;
+      font-size: 14px;
+      transition: all .3s ease-out;
+      border-radius: 0;
+      color: white;
+    }
+
+    /* Estilo do rótulo flutuante */
+    .label-float {
+      position: relative;
+      padding-top: 13px;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    /* Efeito no campo de entrada quando está em foco */
+    .label-float input:focus {
+      border-bottom: 2px solid #72cb62; /* Verde mais claro */
+    }
+
+    /* Estilo do rótulo flutuante quando o campo está em foco ou preenchido */
+    .label-float label {
+      color: #91ee81; /* Verde mais claro */
+      pointer-event: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 13px;
+      transition: all .3s ease-out;
+    }
+
+    /* Estilo do rótulo flutuante quando o campo está em foco ou preenchido */
+    .label-float input:focus + label,
+    .label-float input:valid + label {
+      font-size: 13px;
+      margin-top: 0;
+      color: #59cd1f; /* Verde mais escuro */
+    }
+
+    /* Estilo do botão "Entrar" */
+    button {
+      background-color: transparent;
+      border-color: #2cd72f; /* Verde mais claro */
+      color: #4ce25e; /* Corrigido para verde mais escuro */   /* cor da palavra Entrar*/
+      padding: 7px;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+      transition: all .4s ease-out;
+    }
+
+    /* Efeito no botão ao passar o mouse */
+    button:hover {
+      background-color: #47d631; /* Verde mais claro */
+      color: #114f2296; /* Azul mais escuro */
+    }
+
+    /* Alinhamento central */
+    .justify-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Estilo da linha horizontal */
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 60%;
+    }
+
+    /* Estilo do parágrafo abaixo do botão */
+    p {
+      color: #46df53; /* Verde mais claro */
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Estilo do link abaixo do parágrafo */
+    a {
+      color: #46df53; /* Verde mais claro */
+      font-weight: bold;
+      text-decoration: none;
+      transition: all .3s ease-out;
+    }
+
+    /* Efeito no link ao passar o mouse */
+    a:hover {
+      color: #46df53; /* Verde mais claro */
+    }
+
+    /* Estilo do ícone do olho */
+    .fa-eye {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      cursor: pointer;
+      color: #28b332; /* Verde mais escuro */
+    }
+
+    /* Estilo da mensagem de erro */
+    #msgError {
+      text-align: center;
+      color: #0e730e; /* Verde mais escuro */
+      background-color: rgb(110, 245, 98); /* Verde claro */
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+  </style>
+  <title>MEGA FLUXO OB</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Entrar</h1>
+
+      <div id="msgError"></div>
+
+      <div class="label-float">
+        <input type="text" id="usuario" placeholder="" required />
+        <label id="userLabel" for="usuario">Usuario</label>
+      </div>
+
+      <div class="label-float">
+        <input type="password" id="senha" placeholder="" required />
+        <label id="senhaLabel" for="senha">Senha</label>
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </div>
+
+      <div class="justify-center">
+        <button onclick="entrar()">Entrar</button>
+      </div>
+
+      <div class="justify-center">
+        <hr />
+      </div>
+
+      <p>
+        Não tem uma conta?
+        <a href="https://t.me/suporte_quotexGain" target="_blank">Pedir acesso</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
