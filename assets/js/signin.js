@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(() => {
         console.log("Login bem-sucedido.");
         hideLoading();
-        window.location.href = "../../index.html";
+        window.location.href = "../../indicador.html";
       })
       .catch(error => {
         console.error("Erro durante o login:", error);
