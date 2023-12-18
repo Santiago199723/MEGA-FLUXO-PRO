@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../css/signin.css" />
+  <style>
+    /* ... Seus estilos CSS ... */
+  </style>
+  <title>MEGA FLUXO PRÓ</title>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Login</h1>
+
+      <div id="msgError"></div>
+
+      <div class="label-float">
+        <input type="text" id="usuario" placeholder="" required />
+        <label id="userLabel" for="usuario">E-mail</label>
+      </div>
+
+      <div class="label-float">
+        <input type="password" id="senha" placeholder="" required />
+        <label id="senhaLabel" for="senha">Senha</label>
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </div>
+
+      <div class="justify-center">
+        <button id="btnEntrar">Entrar</button>
+      </div>
+
+      <!-- Links de cadastro -->
+      <div class="justify-center">
+        <p>
+          Crie seu login |
+          <a href="https://t.me/suporte_quotexGain">
+            Cadastre-se
+          </a>
+        </p>
+      </div>
+
+      <!-- Botão de suporte -->
+      <div class="justify-center support-button-container">
+        <button class="support-button" onclick="window.location.href='https://t.me/suporte_quotexGain'">
+          Suporte
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/signin.js"></script>
+  <script src="../js/validations.js"></script>
+  <script src="../js/loading.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCT2mKO_QlYTUVMi0E2Wi3rHVcHmqaUMTE",
+      authDomain: "mega-fluxo-pro-adm.firebaseapp.com",
+      projectId: "mega-fluxo-pro-adm",
+      storageBucket: "mega-fluxo-pro-adm.appspot.com",
+      messagingSenderId: "672946920755",
+      appId: "1:672946920755:web:2da868a7f8474a7817b246"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="../js/signin.js"></script>
+</body>
+</html>
