@@ -15,24 +15,19 @@
   <div class="container">
     <div class="card">
       <h1>Login</h1>
-
       <div id="msgError"></div>
-
       <div class="label-float">
         <input type="text" id="usuario" placeholder="" required />
         <label id="userLabel" for="usuario">E-mail</label>
       </div>
-
       <div class="label-float">
         <input type="password" id="senha" placeholder="" required />
         <label id="senhaLabel" for="senha">Senha</label>
         <i class="fa fa-eye" aria-hidden="true"></i>
       </div>
-
       <div class="justify-center">
         <button id="btnEntrar">Entrar</button>
       </div>
-
       <!-- Links de cadastro -->
       <div class="justify-center">
         <p>
@@ -42,7 +37,6 @@
           </a>
         </p>
       </div>
-
       <!-- Botão de suporte -->
       <div class="justify-center support-button-container">
         <button class="support-button" onclick="window.location.href='https://t.me/suporte_quotexGain'">
@@ -67,7 +61,7 @@
   </script>
 
   <script>
-    document.getElementById('#Entrar').addEventListener('click', function () {
+    document.getElementById('btnEntrar').addEventListener('click', function () {
       const usuario = document.getElementById('usuario').value.trim();
       const senha = document.getElementById('senha').value.trim();
 
@@ -84,6 +78,5 @@
   <script src="signin.js"></script>
   <script src="validations.js"></script>
   <script src="loading.js"></script>
-  <script src="signin.js"></script>
 </body>
 </html>
