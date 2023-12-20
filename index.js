@@ -16,7 +16,7 @@ auth.onAuthStateChanged((user) => {
   if (!user) {
     // User is not logged in
     alert("Você precisa estar logado para acessar ao indicador! Suporte: https://t.me/+By1fd0M7ZCAwNmFh");
-    window.location.href = "signin.html";
+    window.location.href = "index.html";
   } else {
     // User is logged in
     const userLogado = {

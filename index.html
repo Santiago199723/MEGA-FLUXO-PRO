@@ -52,10 +52,6 @@
     </div>
   </div>
 
-  <script src="signin.js"></script>
-  <script src="validations.js"></script>
-  <script src="loading.js"></script>
-
   <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
   <script>
@@ -70,6 +66,24 @@
     firebase.initializeApp(firebaseConfig);
   </script>
 
+  <script>
+    document.getElementById('#Entrar').addEventListener('click', function () {
+      const usuario = document.getElementById('usuario').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+
+      if (usuario.toLowerCase() === 'admin') {
+        // Redirecionar para o seu site desejado
+        window.location.href = 'https://console.firebase.google.com/u/0/project/mega-fluxo-pro-adm/authentication/users?hl=pt-br';
+      } else {
+        // Exibir mensagem de erro caso as credenciais sejam inválidas
+        document.getElementById('msgError').innerHTML = 'Credenciais inválidas. Tente novamente.';
+      }
+    });
+  </script>
+
+  <script src="signin.js"></script>
+  <script src="validations.js"></script>
+  <script src="loading.js"></script>
   <script src="signin.js"></script>
 </body>
 </html>
