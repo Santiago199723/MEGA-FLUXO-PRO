@@ -269,6 +269,7 @@
     <div id="info-container">
         <div id="asset-image-container"><img id="asset-image" src="" alt="Asset Image"></div>
         <div id="asset-name-container"><div id="asset-name"></div></div>
+        <div id="indicador"></div>
         <br>
         <br>
         <br>
@@ -284,10 +285,7 @@
             <h1>CORRETORA BINOMO</h1>
             <div id="timeframe-title">Timeframe:</div>
             <div id="timeframe-buttons">
-                <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
-                <button class="timeframe-btn" onclick="changeTimeframe('M5')">M5</button>
-                <button class="timeframe-btn" onclick="changeTimeframe('M30')">M30</button>
-                <button class="timeframe-btn" onclick="changeTimeframe('H1')">H1</button>
+                <button class="timeframe-btn" onclick="changeTimeframe('M1')">M1</button>
             </div>
         </div>
         <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">70%</span></div>
@@ -358,7 +356,7 @@
                 audioPlayer.play();
             } else if (sellPercentage >= 90) {
                 const entryTime = getEntryTime();
-                document.getElementById('status-message').innerText = `<<< PUT ÀS ${entryTime} ${currentAsset} M1 >>>`;
+                document.getElementById('status-message').innerText = `<<< PUT ÀS ${entryTime} ${currentAsset} M1  >>>`;
                 var audioPlayer = document.getElementById('attentionAudio');
                 audioPlayer.play();
             } else {
@@ -376,33 +374,29 @@
             return `${hours}:${minutes}`;
         }
 
-        function showNotification(selectedTimeframe) {
-            if (!("Notification" in window)) {
-                alert("Este navegador não suporta notificações desktop");
-            } else if (Notification.permission === "granted") {
-                const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
-                    }
-                });
-            }
-        }
-
-        function changeTimeframe(timeframe) {
-            const selectedBtn = document.querySelector(`.timeframe-btn[data-timeframe="${timeframe}"]`);
-            if (selectedBtn) {
-                selectedBtn.classList.toggle('selected-timeframe');
-            }
-
-            document.getElementById('selected-timeframe').innerText = timeframe;
-
-            showNotification(timeframe);
-        }
 
         updateData();
         updateAsset();
+        
+
+
+        let selectedTimeframe = ""; // Add this variable to keep track of the selected timeframe
+
+        function changeTimeframe(timeframe) {
+            const selectedBtn = document.querySelector('.selected-timeframe');
+            if (selectedBtn) {
+                selectedBtn.classList.remove('selected-timeframe');
+            }
+
+            const newSelectedBtn = document.querySelector(`.timeframe-btn[data-timeframe="${timeframe}"]`);
+            if (newSelectedBtn) {
+                newSelectedBtn.classList.add('selected-timeframe');
+                selectedTimeframe = timeframe;
+            }
+
+        }
+
+
 
         document.getElementById('buy-btn').addEventListener('click', () => {
             window.location.href = 'https://binomo.com/auth?continueByUrl=%2Ftrading&additionalParams=';

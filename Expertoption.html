@@ -3,7 +3,7 @@
 
 <head>
     <audio id="audioPlayer" style="display: none">
-        <source src="deriv.mp3" type="audio/mp3">
+        <source src="Expertoption.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
@@ -22,7 +22,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DERIV</title>
+    <title>EXPERTOPTION</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -281,7 +281,7 @@
     <div id="indicator">
         <div class="border-animation"></div>
         <div id="timeframe-container">
-            <h1>CORRETORA DERIV</h1>
+            <h1>CORRETORA EXPERTOPTION</h1>
             <div id="timeframe-title">Timeframe:</div>
             <div id="timeframe-buttons">
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
@@ -402,11 +402,11 @@
         updateAsset();
 
         document.getElementById('buy-btn').addEventListener('click', () => {
-            window.location.href = 'https://oauth.deriv.com/oauth2/authorize?app_id=16929&l=pt&brand=deriv&date_first_contact=2023-12-22';
+            window.location.href = 'https://pt.expertoption.com/login/';
         });
 
         document.getElementById('sell-btn').addEventListener('click', () => {
-            window.location.href = 'https://oauth.deriv.com/oauth2/authorize?app_id=16929&l=pt&brand=deriv&date_first_contact=2023-12-22';
+            window.location.href = 'https://pt.expertoption.com/login/';
         });
 
         // Código para o botão Vídeo Aula e Modal
