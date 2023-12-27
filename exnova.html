@@ -309,36 +309,42 @@
 
     <script>
         function shouldShowOTC() {
-            var currentTime = new Date();
-            var dayOfWeek = currentTime.getDay();
-            var currentHour = currentTime.getHours();
+    var currentTime = new Date();
+    var dayOfWeek = currentTime.getDay();
+    var currentHour = currentTime.getHours();
 
-            return (dayOfWeek >= 1 && dayOfWeek <= 5 && ((currentHour >= 16 && currentHour <= 23) || (currentHour >= 0 && currentHour < 2))) || dayOfWeek === 0 || dayOfWeek === 6;
-        }
+    // Adicionando condição para mostrar ativos sem -OTC das 22h às 2h da manhã
+    var showNormalAssetsDuringNight = currentHour >= 23 && currentHour < 2;
 
-        function getRandomAsset() {
-            const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
-            const randomIndex = Math.floor(Math.random() * assets.length);
-            return assets[randomIndex];
-        }
+    return (dayOfWeek >= 1 && dayOfWeek <= 5 && ((currentHour >= 17 && currentHour < 22) || (currentHour >= 2 && currentHour <= 23))) || showNormalAssetsDuringNight || dayOfWeek === 0 || dayOfWeek === 6;
+}
 
-        let currentAsset = "";
+function getRandomAsset() {
+    const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
+    const randomIndex = Math.floor(Math.random() * assets.length);
+    return assets[randomIndex];
+}
 
-        function updateAsset() {
-            function changeAsset() {
-                const currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+let currentAsset = "";
 
-                const assetImageName = currentAsset.replace("/", "") + ".png";
-                const assetImagePath = assetImageName;
+function updateAsset() {
+    function changeAsset() {
+        const currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
 
-                document.getElementById('asset-image').src = assetImagePath;
-                document.getElementById('asset-name').innerText = currentAsset;
+        const assetImageName = currentAsset.replace("/", "") + ".png";
+        const assetImagePath = assetImageName;
 
-                setTimeout(changeAsset, 31000);
-            }
+        document.getElementById('asset-image').src = assetImagePath;
+        document.getElementById('asset-name').innerText = currentAsset;
 
-            changeAsset();
-        }
+        setTimeout(changeAsset, 31000);
+    }
+
+    changeAsset();
+}
+
+// Chama a função para iniciar a exibição de ativos
+updateAsset();
 
 
         function updateData() {

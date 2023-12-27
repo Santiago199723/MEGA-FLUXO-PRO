@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <audio id="audioPlayer" style="display: none">
+        <source src="binarium.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="attentionAudio" style="display: none">
+        <source src="atencao.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Script para reproduzir o áudio ao carregar a página -->
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.play();
+        });
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINARIUM</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('worldmap.svg') center center no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        #info-container {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #indicator {
+            width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #3498db;
+        }
+
+        .border-animation {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 2px solid transparent;
+            animation: borderAnimate 2s infinite linear;
+        }
+
+        @keyframes borderAnimate {
+            0% {
+                border-color: #7fee35;
+                top: -2px;
+                left: -2px;
+            }
+            25% {
+                border-color: #e74c3c;
+                top: -2px;
+                left: 100%;
+            }
+            50% {
+                border-color: #7fee35;
+                top: 100%;
+                left: 100%;
+            }
+            75% {
+                border-color: #e74c3c;
+                top: 100%;
+                left: -2px;
+            }
+            100% {
+                border-color: #3498db;
+                top: -2px;
+                left: -2px;
+            }
+        }
+
+        /* Adicione o restante dos estilos CSS existentes aqui... */
+
+        #scheduled-signals {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #scheduled-signals-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #scheduled-signals-list li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    <div id="info-container">
+        <div id="asset-image-container"><img id="asset-image" src="" alt="Asset Image"></div>
+        <div id="asset-name-container"><div id="asset-name"></div></div>
+        <br>
+        <br>
+        <br>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="indicator">
+        <div class="border-animation"></div>
+        <div id="timeframe-container">
+            <h1>CORRETORA BINARIUM</h1>
+            <div id="timeframe-title">Timeframe:</div>
+            <div id="timeframe-buttons">
+                <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
+            </div>
+        </div>
+        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">70%</span></div>
+        <button id="buy-btn">CALL - Pra cima</button>
+        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">30%</span></div>
+        <button id="sell-btn">PUT - Pra baixo</button>
+        <div id="message-container">
+            <p id="status-message"></p>
+        </div>
+    </div>
+
+    <!-- Novo painel para sinais programados -->
+    <div id="scheduled-signals">
+        <h2>Sinais Programados para 23:59</h2>
+        <ul id="scheduled-signals-list"></ul>
+    </div>
+
+    <!-- Botão Vídeo Aula e Modal -->
+    <button id="video-button">Vídeo Aula</button>
+
+    <div id="video-modal">
+        <span id="close-video-modal">&times;</span>
+        <video controls>
+            <source src="aula.mp4" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    </div>
+
+    <script>
+        function generateSignals() {
+            return [
+                'EURUSD-OTC ou EURUSD CALL ou PUT M1 ou M5 00:00 26/12/2023',
+                'EURGBPC-OTC EURGBP u PUT M1 ou M5 00:00 26/12/2023',
+                // Adicione mais sinais conforme necessário
+            ];
+        }
+
+        function generateScheduledSignals() {
+            const scheduledSignalsList = document.getElementById('scheduled-signals-list');
+            const currentTime = new Date();
+
+            if (currentTime.getHours() === 23 && currentTime.getMinutes() === 59) {
+                // Gerar e adicionar sinais à lista
+                const signals = generateSignals(); // Implemente a lógica para gerar os sinais
+                signals.forEach(signal => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = signal;
+                    scheduledSignalsList.appendChild(listItem);
+                });
+            }
+        }
+
+        // Chame a função a cada minuto para verificar se é 23:59
+        setInterval(generateScheduledSignals, 60000);
+
+                <script>
+            function shouldShowOTC() {
+                var currentTime = new Date();
+                var dayOfWeek = currentTime.getDay();
+                var currentHour = currentTime.getHours();
+
+                return (dayOfWeek >= 1 && dayOfWeek <= 5 && ((currentHour >= 16 && currentHour <= 23) || (currentHour >= 0 && currentHour < 2))) || dayOfWeek === 0 || dayOfWeek === 6;
+            }
+
+            function getRandomAsset() {
+                const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
+                const randomIndex = Math.floor(Math.random() * assets.length);
+                return assets[randomIndex];
+            }
+
+            let currentAsset = "";
+
+            function updateAsset() {
+                function changeAsset() {
+                    const currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+
+                    const assetImageName = currentAsset.replace("/", "") + ".png";
+                    const assetImagePath = assetImageName;
+
+                    document.getElementById('asset-image').src = assetImagePath;
+                    document.getElementById('asset-name').innerText = currentAsset;
+
+                    setTimeout(changeAsset, 31000);
+                }
+
+                changeAsset();
+            }
+
+            function updateData() {
+                const buyPercentage = Math.floor(Math.random() * 100);
+                const sellPercentage = 100 - buyPercentage;
+
+                document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
+                document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
+
+                if (buyPercentage >= 90) {
+                    const entryTime = getEntryTime();
+                    document.getElementById('status-message').innerText = `<<< CALL ÀS ${entryTime} ${currentAsset} M1 >>>`;
+                    var audioPlayer = document.getElementById('attentionAudio');
+                    audioPlayer.play();
+                } else if (sellPercentage >= 90) {
+                    const entryTime = getEntryTime();
+                    document.getElementById('status-message').innerText = `<<< PUT ÀS ${entryTime} ${currentAsset} M1 >>>`;
+                    var audioPlayer = document.getElementById('attentionAudio');
+                    audioPlayer.play();
+                } else {
+                    document.getElementById('status-message').innerText = '';
+                }
+
+                setTimeout(updateData, 31000);
+            }
+
+            function getEntryTime() {
+                const currentTime = new Date();
+                const entryTime = new Date(currentTime.getTime() + 60000); // Adding 1 minute (60,000 milliseconds)
+                const hours = entryTime.getHours().toString().padStart(2, '0');
+                const minutes = entryTime.getMinutes().toString().padStart(2, '0');
+                return `${hours}:${minutes}`;
+            }
+
+            function showNotification(selectedTimeframe) {
+                if (!("Notification" in window)) {
+                    alert("Este navegador não suporta notificações desktop");
+                } else if (Notification.permission === "granted") {
+                    const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
+                        }
+                    });
+                }
+            }
+
+            function changeTimeframe(timeframe) {
+                const selectedBtn = document.querySelector(`.timeframe-btn[data-timeframe="${timeframe}"]`);
+                if (selectedBtn) {
+                    selectedBtn.classList.toggle('selected-timeframe');
+                }
+
+                document.getElementById('selected-timeframe').innerText = timeframe;
+
+                showNotification(timeframe);
+            }
+
+            // Função para gerar sinais programados
+            function generateSignals() {
+                return [
+                    'EURUSD-OTC ou EURUSD CALL ou PUT M1 ou M5 00:00 26/12/2023',
+                    'EURGBPC-OTC EURGBP u PUT M1 ou M5 00:00 26/12/2023',
+                    // Adicione mais sinais conforme necessário
+                ];
+            }
+
+            // Função para gerar e exibir sinais programados
+            function generateScheduledSignals() {
+                const scheduledSignalsList = document.getElementById('scheduled-signals-list');
+                const currentTime = new Date();
+
+                if (currentTime.getHours() === 23 && currentTime.getMinutes() === 59) {
+                    // Gerar e adicionar sinais à lista
+                    const signals = generateSignals();
+                    signals.forEach(signal => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = signal;
+                        scheduledSignalsList.appendChild(listItem);
+                    });
+                }
+            }
+
+            // Chame a função a cada minuto para verificar se é 23:59
+            setInterval(generateScheduledSignals, 60000);
+
+            updateData();
+            updateAsset();
+
+            document.getElementById('buy-btn').addEventListener('click', () => {
+                window.location.href = 'CjwKCAiAp5qsBhAPEiwAP0qeJpECJzg4qobMbccTrIZEds_ax3eh8DNVDtsW869YA6bYaNEMw6OURxoCThUQAvD_BwE';
+            });
+
+            document.getElementById('sell-btn').addEventListener('click', () => {
+                window.location.href = 'CjwKCAiAp5qsBhAPEiwAP0qeJpECJzg4qobMbccTrIZEds_ax3eh8DNVDtsW869YA6bYaNEMw6OURxoCThUQAvD_BwE';
+            });
+
+            // Código para o botão Vídeo Aula e Modal
+            document.getElementById('video-button').addEventListener('click', function () {
+                document.getElementById('video-modal').style.display = 'flex';
+                document.getElementById('myVideo').play(); // Iniciar o vídeo ao abrir o modal
+            });
+
+            document.getElementById('close-video-modal').addEventListener('click', function () {
+                var videoModal = document.getElementById('video-modal');
+                videoModal.style.display = 'none';
+
+                // Pausar o vídeo ao fechar o modal
+                var videoElement = videoModal.querySelector('video');
+                videoElement.pause();
+            });
+        </script>
+
