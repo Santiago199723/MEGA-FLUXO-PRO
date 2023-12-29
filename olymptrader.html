@@ -291,9 +291,9 @@
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M5')">M5</button>
             </div>
         </div>
-        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">70%</span></div>
+        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">50%</span></div>
         <button id="buy-btn">CALL - Pra cima</button>
-        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">30%</span></div>
+        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">50%</span></div>
         <button id="sell-btn">PUT - Pra baixo</button>
         <div id="message-container">
             <p id="status-message"></p>
@@ -353,7 +353,7 @@
             document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
             document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
 
-            const timeframe = Math.random() < 0.5 ? 'M1' : 'M5';
+            const timeframe = Math.random() < 0.3 ? 'M5' : 'M1';
 
             if (buyPercentage >= 90) {
                 const entryTime = getEntryTime();
