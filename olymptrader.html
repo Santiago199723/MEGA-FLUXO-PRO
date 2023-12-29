@@ -148,12 +148,12 @@
         }
 
         .timeframe-btn:hover {
-            background-color: #d1df0e;
+            background-color: #b5f38c;
             color: white;
         }
 
         .selected-timeframe {
-            background-color: #f4dc52;
+            background-color: #c4f568;
             color: white;
         }
 
@@ -282,9 +282,10 @@
         <div class="border-animation"></div>
         <div id="timeframe-container">
             <h1>CORRETORA OLYMPTRADER</h1>
-            <div id="timeframe-title">Timeframe:</div>
+            <div id="timeframe-title">Os sinais serão em:</div>
             <div id="timeframe-buttons">
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
+                <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M5')">M5</button>
             </div>
         </div>
         <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">70%</span></div>
@@ -314,10 +315,10 @@
     var currentHour = currentTime.getHours();
 
     // Condição para mostrar ativos sem -OTC durante a semana das 22h às 16h
-    var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 16 && currentHour < 22;
+    var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour < 22;
 
     // Condição para mostrar ativos com -OTC durante o fim de semana e fora do horário especificado durante a semana
-    var showOTC = currentHour < 16 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
+    var showOTC = currentHour < 18 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
 
     return !showOTC || showNormalAssetsDuringWeekday;
 }
@@ -351,33 +352,39 @@ function updateAsset() {
 updateAsset();
 
 
-        function updateData() {
-            const buyPercentage = Math.floor(Math.random() * 100);
-            const sellPercentage = 100 - buyPercentage;
+function updateData() {
+    const buyPercentage = Math.floor(Math.random() * 100);
+    const sellPercentage = 100 - buyPercentage;
 
-            document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
-            document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
+    document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
+    document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
 
-            if (buyPercentage >= 90) {
-                const entryTime = getEntryTime();
-                document.getElementById('status-message').innerText = `<<< CALL ÀS ${entryTime} ${currentAsset} M1 >>>`;
-                var audioPlayer = document.getElementById('attentionAudio');
-                audioPlayer.play();
-            } else if (sellPercentage >= 90) {
-                const entryTime = getEntryTime();
-                document.getElementById('status-message').innerText = `<<< PUT ÀS ${entryTime} ${currentAsset} M1 >>>`;
-                var audioPlayer = document.getElementById('attentionAudio');
-                audioPlayer.play();
-            } else {
-                document.getElementById('status-message').innerText = '';
-            }
+    // Escolha aleatória entre M1 e M5
+    const timeframe = Math.random() < 0.5 ? 'M1' : 'M5';
 
-            setTimeout(updateData, 31000);
-        }
+    if (buyPercentage >= 90) {
+        const entryTime = getEntryTime();
+        document.getElementById('status-message').innerText = `<<<  CALL ÀS ${entryTime} ${currentAsset} ${timeframe}  >>>`;
+        var audioPlayer = document.getElementById('attentionAudio');
+        audioPlayer.play();
+    } else if (sellPercentage >= 90) {
+        const entryTime = getEntryTime();
+        document.getElementById('status-message').innerText = `<<<  PUT ÀS ${entryTime} ${currentAsset} ${timeframe}  >>>`;
+        var audioPlayer = document.getElementById('attentionAudio');
+        audioPlayer.play();
+    } else {
+        document.getElementById('status-message').innerText = '';
+    }
+
+    setTimeout(updateData, 31000);
+}
+
+// Chame a função pela primeira vez
+updateData();
 
         function getEntryTime() {
             const currentTime = new Date();
-            const entryTime = new Date(currentTime.getTime() + 60000); // Adding 1 minute (60,000 milliseconds)
+            const entryTime = new Date(currentTime.getTime() + 75000); // Adding 1 minute (60,000 milliseconds)
             const hours = entryTime.getHours().toString().padStart(2, '0');
             const minutes = entryTime.getMinutes().toString().padStart(2, '0');
             return `${hours}:${minutes}`;
