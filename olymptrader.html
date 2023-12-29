@@ -12,7 +12,6 @@
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <!-- Script para reproduzir o áudio ao carregar a página -->
     <script>
         window.addEventListener('DOMContentLoaded', function () {
             var audioPlayer = document.getElementById('audioPlayer');
@@ -36,7 +35,7 @@
             background-size: cover;
             position: relative;
         }
-
+        
         #info-container {
             position: absolute;
             top: 50px;
@@ -260,6 +259,10 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+
+        /* Restante do seu CSS permanece inalterado */
+
     </style>
 </head>
 
@@ -281,7 +284,7 @@
     <div id="indicator">
         <div class="border-animation"></div>
         <div id="timeframe-container">
-            <h1>CORRETORA OLYMPTRADER</h1>
+            <h1>CORRETORA OLYMPTRADAER</h1>
             <div id="timeframe-title">Os sinais serão em:</div>
             <div id="timeframe-buttons">
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
@@ -297,94 +300,82 @@
         </div>
     </div>
 
-    <!-- Botão Vídeo Aula e Modal -->
     <button id="video-button">Vídeo Aula</button>
 
     <div id="video-modal">
         <span id="close-video-modal">&times;</span>
-        <video controls>
+        <video controls id="myVideo">
             <source src="aula.mp4" type="video/mp4">
             Seu navegador não suporta o elemento de vídeo.
         </video>
     </div>
 
     <script>
-         function shouldShowOTC() {
-    var currentTime = new Date();
-    var dayOfWeek = currentTime.getDay();
-    var currentHour = currentTime.getHours();
+        function shouldShowOTC() {
+            var currentTime = new Date();
+            var dayOfWeek = currentTime.getDay();
+            var currentHour = currentTime.getHours();
 
-    // Condição para mostrar ativos sem -OTC durante a semana das 22h às 16h
-    var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour < 22;
+            var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour < 22;
+            var showOTC = currentHour < 18 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
 
-    // Condição para mostrar ativos com -OTC durante o fim de semana e fora do horário especificado durante a semana
-    var showOTC = currentHour < 18 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
+            return !showOTC || showNormalAssetsDuringWeekday;
+        }
 
-    return !showOTC || showNormalAssetsDuringWeekday;
-}
+        function getRandomAsset() {
+            const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
+            const randomIndex = Math.floor(Math.random() * assets.length);
+            return assets[randomIndex];
+        }
 
+        let currentAsset = "";
 
-function getRandomAsset() {
-    const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
-    const randomIndex = Math.floor(Math.random() * assets.length);
-    return assets[randomIndex];
-}
+        function updateAsset() {
+            function changeAsset() {
+                currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
 
-let currentAsset = "";
+                const assetImageName = currentAsset.replace("/", "") + ".png";
+                const assetImagePath = assetImageName;
 
-function updateAsset() {
-    function changeAsset() {
-        const currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+                document.getElementById('asset-image').src = assetImagePath;
+                document.getElementById('asset-name').innerText = currentAsset;
+            }
 
-        const assetImageName = currentAsset.replace("/", "") + ".png";
-        const assetImagePath = assetImageName;
+            changeAsset();
 
-        document.getElementById('asset-image').src = assetImagePath;
-        document.getElementById('asset-name').innerText = currentAsset;
+            setInterval(changeAsset, 31000);
+        }
 
-        setTimeout(changeAsset, 31000);
-    }
+        function updateData() {
+            const buyPercentage = Math.floor(Math.random() * 100);
+            const sellPercentage = 100 - buyPercentage;
 
-    changeAsset();
-}
+            document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
+            document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
 
-// Chama a função para iniciar a exibição de ativos
-updateAsset();
+            const timeframe = Math.random() < 0.5 ? 'M1' : 'M5';
 
+            if (buyPercentage >= 90) {
+                const entryTime = getEntryTime();
+                document.getElementById('status-message').innerText = `<<<  CALL ÀS ${entryTime}  ${currentAsset}  ${timeframe}  >>>`;
+                var audioPlayer = document.getElementById('attentionAudio');
+                audioPlayer.play();
+            } else if (sellPercentage >= 90) {
+                const entryTime = getEntryTime();
+                document.getElementById('status-message').innerText = `<<<  PUT ÀS ${entryTime}  ${currentAsset}  ${timeframe}  >>>`;
+                var audioPlayer = document.getElementById('attentionAudio');
+                audioPlayer.play();
+            } else {
+                document.getElementById('status-message').innerText = '';
+            }
+        }
 
-function updateData() {
-    const buyPercentage = Math.floor(Math.random() * 100);
-    const sellPercentage = 100 - buyPercentage;
-
-    document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
-    document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
-
-    // Escolha aleatória entre M1 e M5
-    const timeframe = Math.random() < 0.5 ? 'M1' : 'M5';
-
-    if (buyPercentage >= 90) {
-        const entryTime = getEntryTime();
-        document.getElementById('status-message').innerText = `<<<  CALL ÀS ${entryTime} ${currentAsset} ${timeframe}  >>>`;
-        var audioPlayer = document.getElementById('attentionAudio');
-        audioPlayer.play();
-    } else if (sellPercentage >= 90) {
-        const entryTime = getEntryTime();
-        document.getElementById('status-message').innerText = `<<<  PUT ÀS ${entryTime} ${currentAsset} ${timeframe}  >>>`;
-        var audioPlayer = document.getElementById('attentionAudio');
-        audioPlayer.play();
-    } else {
-        document.getElementById('status-message').innerText = '';
-    }
-
-    setTimeout(updateData, 31000);
-}
-
-// Chame a função pela primeira vez
-updateData();
+        updateAsset();
+        setInterval(updateData, 31000);
 
         function getEntryTime() {
             const currentTime = new Date();
-            const entryTime = new Date(currentTime.getTime() + 75000); // Adding 1 minute (60,000 milliseconds)
+            const entryTime = new Date(currentTime.getTime() + 75000);
             const hours = entryTime.getHours().toString().padStart(2, '0');
             const minutes = entryTime.getMinutes().toString().padStart(2, '0');
             return `${hours}:${minutes}`;
@@ -415,9 +406,6 @@ updateData();
             showNotification(timeframe);
         }
 
-        updateData();
-        updateAsset();
-
         document.getElementById('buy-btn').addEventListener('click', () => {
             window.location.href = 'https://olymptrade.com/login';
         });
@@ -426,24 +414,20 @@ updateData();
             window.location.href = 'https://olymptrade.com/login';
         });
 
-        // Código para o botão Vídeo Aula e Modal
-        
         document.getElementById('video-button').addEventListener('click', function () {
             document.getElementById('video-modal').style.display = 'flex';
-            document.getElementById('myVideo').play(); // Iniciar o vídeo ao abrir o modal
+            document.getElementById('myVideo').play();
         });
 
         document.getElementById('close-video-modal').addEventListener('click', function () {
             var videoModal = document.getElementById('video-modal');
             videoModal.style.display = 'none';
 
-            // Pausar o vídeo ao fechar o modal
             var videoElement = videoModal.querySelector('video');
             videoElement.pause();
         });
     </script>
-
-
+        
 </body>
 
 </html>
