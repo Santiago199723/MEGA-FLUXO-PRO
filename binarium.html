@@ -311,40 +311,49 @@
     </div>
 
     <script>
-        function shouldShowOTC() {
-            var currentTime = new Date();
-            var dayOfWeek = currentTime.getDay();
-            var currentHour = currentTime.getHours();
+      function shouldShowOTC() {
+    var currentTime = new Date();
+    var dayOfWeek = currentTime.getDay();
+    var currentHour = currentTime.getHours();
 
-            var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour < 22;
-            var showOTC = currentHour < 18 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
+    var shouldShowOTC = false;
 
-            return !showOTC || showNormalAssetsDuringWeekday;
-        }
+    if ((dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour <= 22) || dayOfWeek === 0 || dayOfWeek === 6) {
+    shouldShowOTC = true;
+}
 
-        function getRandomAsset() {
-            const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
-            const randomIndex = Math.floor(Math.random() * assets.length);
-            return assets[randomIndex];
-        }
 
-        let currentAsset = "";
+    return shouldShowOTC;
+}
 
-        function updateAsset() {
-            function changeAsset() {
-                currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+function getRandomAsset() {
+    const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
+    const randomIndex = Math.floor(Math.random() * assets.length);
+    return assets[randomIndex];
+}
 
-                const assetImageName = currentAsset.replace("/", "") + ".png";
-                const assetImagePath = assetImageName;
+let currentAsset = "";
 
-                document.getElementById('asset-image').src = assetImagePath;
-                document.getElementById('asset-name').innerText = currentAsset;
-            }
+function updateAsset() {
+    function changeAsset() {
+        const isOTC = shouldShowOTC();
+        currentAsset = isOTC ? getRandomAsset() + "-OTC" : getRandomAsset();
 
-            changeAsset();
+        const assetImageName = currentAsset.replace("/", "") + ".png";
+        const assetImagePath = assetImageName;
 
-            setInterval(changeAsset, 31000);
-        }
+        document.getElementById('asset-image').src = assetImagePath;
+        document.getElementById('asset-name').innerText = currentAsset;
+    }
+
+    changeAsset();
+
+    setInterval(changeAsset, 31000);
+}
+
+// Chame a função updateAsset() para iniciar o processo de atualização do ativo.
+updateAsset();
+
 
         function updateData() {
             const buyPercentage = Math.floor(Math.random() * 100);

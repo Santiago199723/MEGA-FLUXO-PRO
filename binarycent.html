@@ -311,16 +311,21 @@
     </div>
 
     <script>
-        function shouldShowOTC() {
-            var currentTime = new Date();
-            var dayOfWeek = currentTime.getDay();
-            var currentHour = currentTime.getHours();
+               function shouldShowOTC() {
+    var currentTime = new Date();
+    var dayOfWeek = currentTime.getDay();
+    var currentHour = currentTime.getHours();
 
-            var showNormalAssetsDuringWeekday = dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour < 22;
-            var showOTC = currentHour < 18 || currentHour >= 22 || dayOfWeek === 0 || dayOfWeek === 6;
+    var shouldShowOTC = false;
 
-            return !showOTC || showNormalAssetsDuringWeekday;
-        }
+    if ((dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour <= 22) || dayOfWeek === 0 || dayOfWeek === 6) {
+    shouldShowOTC = true;
+}
+
+
+    return shouldShowOTC;
+}
+
 
         function getRandomAsset() {
             const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
