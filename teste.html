@@ -3,7 +3,7 @@
 
 <head>
     <audio id="audioPlayer" style="display: none">
-        <source src="binarium.mp3" type="audio/mp3">
+        <source src="xoption.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
@@ -12,7 +12,6 @@
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <!-- Script para reproduzir o áudio ao carregar a página -->
     <script>
         window.addEventListener('DOMContentLoaded', function () {
             var audioPlayer = document.getElementById('audioPlayer');
@@ -22,29 +21,34 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BINARIUM</title>
+    <title>XOPTION</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: url('worldmap.svg') center center no-repeat;
-            background-size: cover;
-            position: relative;
-        }
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: url('worldmap.svg') center center no-repeat;
+    background-size: cover;
+    position: relative;
+    color: #fff;
+}
 
-        #info-container {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
+#info-container {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 18px;
+}
+
+        #info-container span {
+            font-weight: bold;
+            color: #f39c12;
         }
 
         #indicator {
@@ -96,24 +100,208 @@
             }
         }
 
-        /* Adicione o restante dos estilos CSS existentes aqui... */
+        #asset-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
 
-        #scheduled-signals {
+        #asset-name-container {
+            background-color: rgb(236, 232, 232);
+            padding: 5px;
+            border-radius: 35px;
+            margin-bottom: 40px;
+        }
+
+        #asset-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #14430c;
+        }
+
+        #timeframe-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #timeframe-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        #timeframe-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeframe-btn {
+            padding: 8px 16px;
+            margin: 0 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .timeframe-btn:hover {
+            background-color: #b5f38c;
+            color: white;
+        }
+
+        .selected-timeframe {
+            background-color: #c4f568;
+            color: white;
+        }
+
+        #buy-chance,
+        #sell-chance {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #777;
+        }
+
+        #buy-percentage,
+        #sell-percentage {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #buy-btn,
+        #sell-btn {
+            padding: 10px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #buy-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #buy-btn:hover {
+            background-color: #45a049;
+        }
+
+        #sell-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #sell-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        #message-container {
+            background-color: rgb(255, 255, 255);
+            /* Fundo branco para a mensagem */
+            padding: 10px;
+            border-radius: 30px;
             margin-top: 20px;
+        }
+
+        #status-message {
+            font-size: 18px;
+            color: #ff0000;
+            /* Red color for the status message */
+            font-weight: bold;
+        }
+
+        /* Botão Vídeo Aula e Modal */
+        #video-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #70f459;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #video-button:hover {
+            background-color: #145c1d;
+        }
+
+        #video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
 
-        #scheduled-signals-list {
-            list-style-type: none;
-            padding: 0;
+        #video-modal video {
+            max-width: 80%;
+            max-height: 80%;
         }
 
-        #scheduled-signals-list li {
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #333;
+        #close-video-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+
+        /* ... Your existing styles ... */
+
+        #disable-right-click-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            z-index: 1000;
         }
     </style>
+
+    <script>
+        var isRightClickMessageVisible = false;
+
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    toggleDisableRightClickMessage();
+});
+
+document.addEventListener('click', function (e) {
+    if (isRightClickMessageVisible) {
+        toggleDisableRightClickMessage();
+    }
+});
+
+function toggleDisableRightClickMessage() {
+    var messageContainer = document.getElementById('disable-right-click-message');
+    isRightClickMessageVisible = !isRightClickMessageVisible;
+
+    if (isRightClickMessageVisible) {
+        messageContainer.style.display = 'block';
+    } else {
+        messageContainer.style.display = 'none';
+    }
+}
+    </script>
 </head>
 
 <body>
@@ -134,207 +322,157 @@
     <div id="indicator">
         <div class="border-animation"></div>
         <div id="timeframe-container">
-            <h1>CORRETORA BINARIUM</h1>
-            <div id="timeframe-title">Timeframe:</div>
+            <h1>CORRETORA XOPTION</h1>
+            <div id="timeframe-title">Os sinais serão em:</div>
             <div id="timeframe-buttons">
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M1')">M1</button>
+                <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M5')">M5</button>
             </div>
         </div>
-        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">70%</span></div>
+        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">50%</span></div>
         <button id="buy-btn">CALL - Pra cima</button>
-        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">30%</span></div>
+        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">50%</span></div>
         <button id="sell-btn">PUT - Pra baixo</button>
         <div id="message-container">
             <p id="status-message"></p>
         </div>
     </div>
 
-    <!-- Novo painel para sinais programados -->
-    <div id="scheduled-signals">
-        <h2>Sinais Programados para 23:59</h2>
-        <ul id="scheduled-signals-list"></ul>
-    </div>
-
-    <!-- Botão Vídeo Aula e Modal -->
     <button id="video-button">Vídeo Aula</button>
 
     <div id="video-modal">
         <span id="close-video-modal">&times;</span>
-        <video controls>
+        <video controls id="myVideo">
             <source src="aula.mp4" type="video/mp4">
             Seu navegador não suporta o elemento de vídeo.
         </video>
     </div>
 
+    <div id="disable-right-click-message">
+        <p>Ops, estamos usando segurança máxima! Você não tem permissão para acessar ao código! Se persistir, seu login será bloqueado.</p>
+    </div>
+
     <script>
-        function generateSignals() {
-            return [
-                'EURUSD-OTC ou EURUSD CALL ou PUT M1 ou M5 00:00 26/12/2023',
-                'EURGBPC-OTC EURGBP u PUT M1 ou M5 00:00 26/12/2023',
-                // Adicione mais sinais conforme necessário
-            ];
+        function shouldShowOTC() {
+            // ... Your existing function ...
+    var currentTime = new Date();
+    var dayOfWeek = currentTime.getDay();
+    var currentHour = currentTime.getHours();
+
+    var shouldShowOTC = false;
+
+    if ((dayOfWeek >= 1 && dayOfWeek <= 5 && currentHour >= 18 && currentHour <= 22) || dayOfWeek === 0 || dayOfWeek === 6) {
+    shouldShowOTC = true;
+}
+
+
+    return shouldShowOTC;
+}
+
+        function getRandomAsset() {
+            const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
+            const randomIndex = Math.floor(Math.random() * assets.length);
+            return assets[randomIndex];
         }
 
-        function generateScheduledSignals() {
-            const scheduledSignalsList = document.getElementById('scheduled-signals-list');
-            const currentTime = new Date();
+        let currentAsset = "";
 
-            if (currentTime.getHours() === 23 && currentTime.getMinutes() === 59) {
-                // Gerar e adicionar sinais à lista
-                const signals = generateSignals(); // Implemente a lógica para gerar os sinais
-                signals.forEach(signal => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = signal;
-                    scheduledSignalsList.appendChild(listItem);
+        function updateAsset() {
+            function changeAsset() {
+                currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+
+                const assetImageName = currentAsset.replace("/", "") + ".png";
+                const assetImagePath = assetImageName;
+
+                document.getElementById('asset-image').src = assetImagePath;
+                document.getElementById('asset-name').innerText = currentAsset;
+            }
+
+            changeAsset();
+
+            setInterval(changeAsset, 31000);
+        }
+        function updateData() {
+            const buyPercentage = Math.floor(Math.random() * 100);
+            const sellPercentage = 100 - buyPercentage;
+
+            document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
+            document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
+
+            const timeframe = Math.random() < 0.3 ? 'M5' : 'M1';
+
+            if (buyPercentage >= 90) {
+                const entryTime = getEntryTime();
+                document.getElementById('status-message').innerText = `<<<  CALL ÀS ${entryTime}  ${currentAsset}  ${timeframe}  >>>`;
+                var audioPlayer = document.getElementById('attentionAudio');
+                audioPlayer.play();
+            } else if (sellPercentage >= 90) {
+                const entryTime = getEntryTime();
+                document.getElementById('status-message').innerText = `<<<  PUT ÀS ${entryTime}  ${currentAsset}  ${timeframe}  >>>`;
+                var audioPlayer = document.getElementById('attentionAudio');
+                audioPlayer.play();
+            } else {
+                document.getElementById('status-message').innerText = '';
+            }
+        }
+        updateAsset();
+        setInterval(updateData, 31000);
+
+        function getEntryTime() {
+            const currentTime = new Date();
+            const entryTime = new Date(currentTime.getTime() + 75000);
+            const hours = entryTime.getHours().toString().padStart(2, '0');
+            const minutes = entryTime.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function showNotification(selectedTimeframe) {
+            if (!("Notification" in window)) {
+                alert("Este navegador não suporta notificações desktop");
+            } else if (Notification.permission === "granted") {
+                const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
+                    }
                 });
             }
         }
 
-        // Chame a função a cada minuto para verificar se é 23:59
-        setInterval(generateScheduledSignals, 60000);
-
-                <script>
-            function shouldShowOTC() {
-                var currentTime = new Date();
-                var dayOfWeek = currentTime.getDay();
-                var currentHour = currentTime.getHours();
-
-                return (dayOfWeek >= 1 && dayOfWeek <= 5 && ((currentHour >= 16 && currentHour <= 23) || (currentHour >= 0 && currentHour < 2))) || dayOfWeek === 0 || dayOfWeek === 6;
+        function changeTimeframe(timeframe) {
+            const selectedBtn = document.querySelector(`.timeframe-btn[data-timeframe="${timeframe}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.toggle('selected-timeframe');
             }
 
-            function getRandomAsset() {
-                const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
-                const randomIndex = Math.floor(Math.random() * assets.length);
-                return assets[randomIndex];
-            }
+            document.getElementById('selected-timeframe').innerText = timeframe;
 
-            let currentAsset = "";
+            showNotification(timeframe);
+        }
 
-            function updateAsset() {
-                function changeAsset() {
-                    const currentAsset = shouldShowOTC() ? getRandomAsset() + "-OTC" : getRandomAsset();
+        document.getElementById('buy-btn').addEventListener('click', () => {
+            window.location.href = 'https://trade.xoption.com/en/login';
+        });
 
-                    const assetImageName = currentAsset.replace("/", "") + ".png";
-                    const assetImagePath = assetImageName;
+        document.getElementById('sell-btn').addEventListener('click', () => {
+            window.location.href = 'https://trade.xoption.com/en/login';
+        });
 
-                    document.getElementById('asset-image').src = assetImagePath;
-                    document.getElementById('asset-name').innerText = currentAsset;
+        document.getElementById('video-button').addEventListener('click', function () {
+            document.getElementById('video-modal').style.display = 'flex';
+            document.getElementById('myVideo').play();
+        });
 
-                    setTimeout(changeAsset, 31000);
-                }
+        document.getElementById('close-video-modal').addEventListener('click', function () {
+            var videoModal = document.getElementById('video-modal');
+            videoModal.style.display = 'none';
 
-                changeAsset();
-            }
+            var videoElement = videoModal.querySelector('video');
+            videoElement.pause();
+        });
+    </script>
+        
+</body>
 
-            function updateData() {
-                const buyPercentage = Math.floor(Math.random() * 100);
-                const sellPercentage = 100 - buyPercentage;
-
-                document.getElementById('buy-percentage').innerText = `${buyPercentage}%`;
-                document.getElementById('sell-percentage').innerText = `${sellPercentage}%`;
-
-                if (buyPercentage >= 90) {
-                    const entryTime = getEntryTime();
-                    document.getElementById('status-message').innerText = `<<< CALL ÀS ${entryTime} ${currentAsset} M1 >>>`;
-                    var audioPlayer = document.getElementById('attentionAudio');
-                    audioPlayer.play();
-                } else if (sellPercentage >= 90) {
-                    const entryTime = getEntryTime();
-                    document.getElementById('status-message').innerText = `<<< PUT ÀS ${entryTime} ${currentAsset} M1 >>>`;
-                    var audioPlayer = document.getElementById('attentionAudio');
-                    audioPlayer.play();
-                } else {
-                    document.getElementById('status-message').innerText = '';
-                }
-
-                setTimeout(updateData, 31000);
-            }
-
-            function getEntryTime() {
-                const currentTime = new Date();
-                const entryTime = new Date(currentTime.getTime() + 60000); // Adding 1 minute (60,000 milliseconds)
-                const hours = entryTime.getHours().toString().padStart(2, '0');
-                const minutes = entryTime.getMinutes().toString().padStart(2, '0');
-                return `${hours}:${minutes}`;
-            }
-
-            function showNotification(selectedTimeframe) {
-                if (!("Notification" in window)) {
-                    alert("Este navegador não suporta notificações desktop");
-                } else if (Notification.permission === "granted") {
-                    const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
-                } else if (Notification.permission !== "denied") {
-                    Notification.requestPermission().then(permission => {
-                        if (permission === "granted") {
-                            const notification = new Notification(`Você selecionou sinais para ${selectedTimeframe}.`);
-                        }
-                    });
-                }
-            }
-
-            function changeTimeframe(timeframe) {
-                const selectedBtn = document.querySelector(`.timeframe-btn[data-timeframe="${timeframe}"]`);
-                if (selectedBtn) {
-                    selectedBtn.classList.toggle('selected-timeframe');
-                }
-
-                document.getElementById('selected-timeframe').innerText = timeframe;
-
-                showNotification(timeframe);
-            }
-
-            // Função para gerar sinais programados
-            function generateSignals() {
-                return [
-                    'EURUSD-OTC ou EURUSD CALL ou PUT M1 ou M5 00:00 26/12/2023',
-                    'EURGBPC-OTC EURGBP u PUT M1 ou M5 00:00 26/12/2023',
-                    // Adicione mais sinais conforme necessário
-                ];
-            }
-
-            // Função para gerar e exibir sinais programados
-            function generateScheduledSignals() {
-                const scheduledSignalsList = document.getElementById('scheduled-signals-list');
-                const currentTime = new Date();
-
-                if (currentTime.getHours() === 23 && currentTime.getMinutes() === 59) {
-                    // Gerar e adicionar sinais à lista
-                    const signals = generateSignals();
-                    signals.forEach(signal => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = signal;
-                        scheduledSignalsList.appendChild(listItem);
-                    });
-                }
-            }
-
-            // Chame a função a cada minuto para verificar se é 23:59
-            setInterval(generateScheduledSignals, 60000);
-
-            updateData();
-            updateAsset();
-
-            document.getElementById('buy-btn').addEventListener('click', () => {
-                window.location.href = 'CjwKCAiAp5qsBhAPEiwAP0qeJpECJzg4qobMbccTrIZEds_ax3eh8DNVDtsW869YA6bYaNEMw6OURxoCThUQAvD_BwE';
-            });
-
-            document.getElementById('sell-btn').addEventListener('click', () => {
-                window.location.href = 'CjwKCAiAp5qsBhAPEiwAP0qeJpECJzg4qobMbccTrIZEds_ax3eh8DNVDtsW869YA6bYaNEMw6OURxoCThUQAvD_BwE';
-            });
-
-            // Código para o botão Vídeo Aula e Modal
-            document.getElementById('video-button').addEventListener('click', function () {
-                document.getElementById('video-modal').style.display = 'flex';
-                document.getElementById('myVideo').play(); // Iniciar o vídeo ao abrir o modal
-            });
-
-            document.getElementById('close-video-modal').addEventListener('click', function () {
-                var videoModal = document.getElementById('video-modal');
-                videoModal.style.display = 'none';
-
-                // Pausar o vídeo ao fechar o modal
-                var videoElement = videoModal.querySelector('video');
-                videoElement.pause();
-            });
-        </script>
-
+</html>

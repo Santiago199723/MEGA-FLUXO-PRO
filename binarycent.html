@@ -261,9 +261,47 @@
         }
 
 
-        /* Restante do seu CSS permanece inalterado */
+        /* ... Your existing styles ... */
 
+        #disable-right-click-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            z-index: 1000;
+        }
     </style>
+
+    <script>
+        var isRightClickMessageVisible = false;
+
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    toggleDisableRightClickMessage();
+});
+
+document.addEventListener('click', function (e) {
+    if (isRightClickMessageVisible) {
+        toggleDisableRightClickMessage();
+    }
+});
+
+function toggleDisableRightClickMessage() {
+    var messageContainer = document.getElementById('disable-right-click-message');
+    isRightClickMessageVisible = !isRightClickMessageVisible;
+
+    if (isRightClickMessageVisible) {
+        messageContainer.style.display = 'block';
+    } else {
+        messageContainer.style.display = 'none';
+    }
+}
+    </script>
 </head>
 
 <body>
@@ -310,8 +348,13 @@
         </video>
     </div>
 
+    <div id="disable-right-click-message">
+        <p>Ops, estamos usando segurança máxima! Você não tem permissão para acessar ao código! Se persistir, seu login será bloqueado.</p>
+    </div>
+
     <script>
-               function shouldShowOTC() {
+        function shouldShowOTC() {
+            // ... Your existing function ...
     var currentTime = new Date();
     var dayOfWeek = currentTime.getDay();
     var currentHour = currentTime.getHours();
@@ -325,7 +368,6 @@
 
     return shouldShowOTC;
 }
-
 
         function getRandomAsset() {
             const assets = ["EUR/GBP", "EUR/USD", "GBP/JPY", "USD/JPY", "AUD/CAD", "ZND/USD", "GBP/USD", "USD/CHF", "EUR/JPY"];
@@ -350,7 +392,6 @@
 
             setInterval(changeAsset, 31000);
         }
-
         function updateData() {
             const buyPercentage = Math.floor(Math.random() * 100);
             const sellPercentage = 100 - buyPercentage;
@@ -374,7 +415,6 @@
                 document.getElementById('status-message').innerText = '';
             }
         }
-
         updateAsset();
         setInterval(updateData, 31000);
 
