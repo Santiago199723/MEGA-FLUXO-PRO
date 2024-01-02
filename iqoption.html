@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+
     <audio id="audioPlayer" style="display: none">
         <source src="iqoption.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
@@ -21,8 +21,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IQOPTION</title>
+    <title>IQOPTON</title>
+    <script src="https://kit.fontawesome.com/317d2ee8b3.js" crossorigin="anonymous"></script>
     <style>
+    
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -147,12 +149,12 @@
         }
 
         .timeframe-btn:hover {
-            background-color: #b5f38c;
-            color: white;
+            background-color: #b3b4b2;
+            color: rgb(231, 228, 228);
         }
 
         .selected-timeframe {
-            background-color: #c4f568;
+            background-color: #dcded9;
             color: white;
         }
 
@@ -217,7 +219,7 @@
         /* Botão Vídeo Aula e Modal */
         #video-button {
             position: fixed;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #70f459;
@@ -275,6 +277,28 @@
             border-radius: 10px;
             z-index: 1000;
         }
+        .percentage-circle {
+            display: inline-block;
+            width: 49px;
+            height: 49px;
+            line-height: 46px;
+            border-radius: 150%;
+            background-color: #d5d6d7;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            margin-left: 7px;
+        }
+
+        #buy-percentage,
+        #sell-percentage {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+        }
+
+
     </style>
 
     <script>
@@ -319,6 +343,9 @@ function toggleDisableRightClickMessage() {
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
     <div id="indicator">
         <div class="border-animation"></div>
         <div id="timeframe-container">
@@ -329,14 +356,16 @@ function toggleDisableRightClickMessage() {
                 <button class="timeframe-btn selected-timeframe" onclick="changeTimeframe('M5')">M5</button>
             </div>
         </div>
-        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage">50%</span></div>
-        <button id="buy-btn">CALL - Pra cima</button>
-        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage">50%</span></div>
-        <button id="sell-btn">PUT - Pra baixo</button>
+        <div id="buy-chance">Probabilidade de ser compra - CALL: <span id="buy-percentage" class="percentage-circle">50%</span></div>
+        <button id="buy-btn"> CALL - Pra cima <i class="fas fa-arrow-up"></i></button>
+
+        <div id="sell-chance">Probabilidade de ser venda - PUT: <span id="sell-percentage" class="percentage-circle">50%</span></div>
+        <button id="sell-btn"> PUT - Pra baixo <i class="fas fa-arrow-down"></i> </button>
+
         <div id="message-container">
             <p id="status-message"></p>
         </div>
-    </div>
+
 
     <button id="video-button">Vídeo Aula</button>
 
